@@ -62,9 +62,12 @@ d[2] <- factor(d[[2]], levels = anames[[1]], labels = tolower(anames[[2]]))
 names(d) <- tolower(sub("\\()", "", names(d)))
 names(d) <- gsub("-", ".", names(d))
 names(d) <- sub("^t", "", names(d))
+names(d) <- sub("acc", "_acceleration", names(d))
+names(d) <- sub("gyro", "_gyrometer", names(d))
+names(d) <- sub("jerk", "_jerk", names(d))
 
-# Tidy up: at this moment the variable names contain values as wel (e.g.
-# gravityacc.mean.x contains information on the variable measured [gravityacc]
+# Tidy up: at this moment the variable names contain values as well (e.g.
+# gravityacc.mean.x contains information on the variable measured [gravity_acceleration]
 # and the type of measurement [mean.x]
 d <- mutate(d, observation = row_number()) %>%
      gather(variable, value, -subject, -activity, -observation) %>%
